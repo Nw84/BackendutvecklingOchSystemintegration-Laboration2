@@ -1,8 +1,6 @@
 package com.laboration2.laboration2.controller;
 
-import java.lang.System.Logger;
 import java.net.URI;
-import java.util.logging.LogManager;
 
 import org.hibernate.Hibernate;
 import org.springframework.http.ResponseEntity;
