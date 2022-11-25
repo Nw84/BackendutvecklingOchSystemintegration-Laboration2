@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,46 +16,27 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.laboration2.laboration2.entity.ParkingSpace;
 import com.laboration2.laboration2.repository.ParkingSpaceRepository;
+import com.laboration2.laboration2.service.ParkingSpaceService;
 
 @RestController
 public class ParkingSpaceController {
 
-    ParkingSpaceRepository parkingSpaceRepository;
+    @Autowired
+    ParkingSpaceService parkingSpaceService;
 
-    public ParkingSpaceController(ParkingSpaceRepository parkingSpaceRepository) {
-        this.parkingSpaceRepository = parkingSpaceRepository;
+    @GetMapping("/parkingspace/{id}")
+    public ResponseEntity<ParkingSpace> getParkingSpace(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingSpaceService.getParkingSpace(id), HttpStatus.OK);
     }
 
-
-    @PostMapping("/parkeringsplatser")
-    public ResponseEntity<ParkingSpace> insertOne(@RequestBody ParkingSpace parkingSpace) {
-
-        var newParkingSpace = parkingSpaceRepository.save(parkingSpace);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(newParkingSpace.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).body(newParkingSpace);
-
+    @GetMapping("/parkingspace")
+    public ResponseEntity <List<ParkingSpace>> getParkingSpace() {
+        return new ResponseEntity<>(parkingSpaceService.getParkingSpaces(), HttpStatus.OK);
     }
 
-    @GetMapping("/parkeringsplatser")
-    public List<ParkingSpace> allPoints() {
-        return parkingSpaceRepository.findAll();
-    }
-
-    @GetMapping("/parkeringsplatser/{id}")
-     public ResponseEntity<ParkingSpace> getOne(@PathVariable("id") Long id) {
-        var parking = parkingSpaceRepository.findById(id);
-
-        if (parking.isPresent()) {
-            Hibernate.initialize(parking.get().getName());
-            return ResponseEntity.ok().body(parking.get());
-        }
-        return ResponseEntity.notFound().build();
+     @PostMapping("/parkingspace")
+     public ResponseEntity<ParkingSpace> saveParkingSpace(@RequestBody ParkingSpace parkingSpace) {
+        return new ResponseEntity<>(parkingSpaceService.saveParkingSpace(parkingSpace), HttpStatus.CREATED);
      }
     
 }

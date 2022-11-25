@@ -1,6 +1,7 @@
 package com.laboration2.laboration2.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,11 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String regestreringsNummer; 
+    @Column(nullable = false)
+    private String name; 
+
+    @Column(nullable = false)
+    private String registrationNumber; 
 
 
     public Long getId() {
@@ -25,15 +30,21 @@ public class Car {
         this.id = id;
     }
 
-    public String getRegestreringsNummer() {
-        return regestreringsNummer;
+    public String getName() {
+        return name;
     }
 
-    public void setRegestreringsnummer(String regestreringsNummer) {
-        this.regestreringsNummer = regestreringsNummer;
-    } 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
 
 
 }

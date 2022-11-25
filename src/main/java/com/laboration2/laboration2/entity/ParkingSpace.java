@@ -3,6 +3,7 @@ package com.laboration2.laboration2.entity;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Point;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +16,10 @@ public class ParkingSpace {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Point<G2D> coordinate; 
-
+    
+    @Column(nullable = false)
     private String name; 
 
     public Long getId() {
