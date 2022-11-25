@@ -18,7 +18,11 @@ public class Person {
     private Long id; 
 
 
-    private String name; 
+    private String name;
+
+    private int socialSecurityNumber; 
+
+    private int phoneNumber;
 
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -39,5 +43,22 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
+    public void setSocialSecurityNumber(int socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
 
 }

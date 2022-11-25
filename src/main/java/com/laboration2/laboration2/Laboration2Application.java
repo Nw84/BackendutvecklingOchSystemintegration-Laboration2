@@ -22,6 +22,7 @@ public class Laboration2Application {
 		};
 	}
 
+
 	@Bean
     GeolatteGeomModule geolatteGeomModule() {
         return new GeolatteGeomModule();

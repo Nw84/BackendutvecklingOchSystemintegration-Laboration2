@@ -1,6 +1,7 @@
 package com.laboration2.laboration2.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,11 @@ public class PersonController {
         }
         return ResponseEntity.notFound().build();
      }
+
+     @GetMapping("/person")
+    public List<Person> allPoints() {
+        return (List<Person>) personRepository.findAll();
+    }
 
      @PostMapping("/person")
      public ResponseEntity<Person> createPerson(@RequestBody Person person) {
