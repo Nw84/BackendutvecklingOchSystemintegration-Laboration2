@@ -6,6 +6,7 @@ import com.laboration2.laboration2.entity.Car;
 
 public interface CarService {
     Car getCar(Long id);
-    Car saveCar(Car person, Long personId);
+    Car saveCar(Car car);
     List<Car> getCars();
+    Car addOwner(Long personId, Long carId);
 }

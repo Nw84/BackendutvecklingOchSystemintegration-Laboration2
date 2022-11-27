@@ -25,9 +25,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car saveCar(Car car, Long personId) {
-        Person person = personRepository.findById(personId).get();
-        car.setPerson(person);
+    public Car saveCar(Car car) {
         return carRepository.save(car);
     }
 
@@ -36,6 +34,13 @@ public class CarServiceImpl implements CarService {
         return (List<Car>)carRepository.findAll();
     }
 
+    @Override
+    public Car addOwner(Long personId, Long carId) {
+        Person person = personRepository.findById(personId).get();
+        Car car = carRepository.findById(carId).get();
+        car.setPerson(person);
+        return carRepository.save(car);
+    }
 
 
 }

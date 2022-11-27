@@ -24,7 +24,7 @@ public class Car {
     @Column(nullable = false)
     private String registrationNumber; 
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Person person; 
 

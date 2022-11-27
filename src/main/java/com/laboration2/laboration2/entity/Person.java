@@ -22,9 +22,6 @@ public class Person {
     @Column(nullable = false)
     private int phoneNumber;
 
-    //@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    //private Set<Car> car = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -57,13 +54,6 @@ public class Person {
         this.socialSecurityNumber = socialSecurityNumber;
     }
 
-    //public Set<Car> getCar() {
-    //    return car;
-   // }
-
-    //public void setCar(Set<Car> car) {
-    //    this.car = car;
-   // }
 
 
 }
