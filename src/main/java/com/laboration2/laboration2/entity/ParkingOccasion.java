@@ -21,7 +21,9 @@ public class ParkingOccasion {
 
     private int stopTime;
 
-    private boolean isActive; 
+    private String status; 
+
+    
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Car car;
@@ -58,12 +60,12 @@ public class ParkingOccasion {
         this.stopTime = stopTime;
     } 
 
-    public boolean isActive() {
-        return isActive;
+    public String getStatus() {
+        return status;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Car getCar() {

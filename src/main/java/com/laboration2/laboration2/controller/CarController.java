@@ -29,8 +29,10 @@ public class CarController {
         return new ResponseEntity<>(carService.getCars(), HttpStatus.OK);
     }
 
-     @PostMapping("/car")
-     public ResponseEntity<Car> savePerson(@RequestBody Car car) {
-        return new ResponseEntity<>(carService.saveCar(car), HttpStatus.CREATED);
+     @PostMapping("/car/{personId}")
+     public ResponseEntity<Car> savePerson(@RequestBody Car car, @PathVariable Long personId) {
+        return new ResponseEntity<>(carService.saveCar(car, personId), HttpStatus.CREATED);
      }
+
+     
 }
