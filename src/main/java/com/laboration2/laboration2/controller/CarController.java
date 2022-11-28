@@ -3,12 +3,15 @@ package com.laboration2.laboration2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laboration2.laboration2.entity.Car;
@@ -34,8 +37,8 @@ public class CarController {
         return new ResponseEntity<>(carService.saveCar(car), HttpStatus.CREATED);
      }
 
-     @GetMapping("/car/{personId}/{carId}")
-     public ResponseEntity<Car> addOwner(@PathVariable Long personId, @PathVariable Long carId) {
+     @PutMapping("/car/{carId}")
+     public ResponseEntity<Car> addOwner(@RequestParam Long personId, @PathVariable Long carId) {
         return new ResponseEntity<>(carService.addOwner(personId, carId), HttpStatus.OK);
      }
 
