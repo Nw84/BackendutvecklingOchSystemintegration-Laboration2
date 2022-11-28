@@ -9,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.laboration2.laboration2.entity.ParkingOccasion;
+import com.laboration2.laboration2.service.DateAndTimeService;
 import com.laboration2.laboration2.service.ParkingOccasionService;
 
 @RestController
@@ -21,6 +23,9 @@ public class ParkingOccasionController {
 
     @Autowired
     ParkingOccasionService parkingOccasionService;
+
+    @Autowired 
+    DateAndTimeService dateAndTimeService;
 
 
     @GetMapping("/parkingoccasion/{id}")
@@ -38,6 +43,18 @@ public class ParkingOccasionController {
 
     @PostMapping("/parkingoccasion/{carId}/{personId}/{parkingSpaceId}")
     public ResponseEntity<ParkingOccasion> saveParkingOccasion(@RequestBody LocalDateTime stopTime, @PathVariable Long carId, @PathVariable Long personId, @PathVariable Long parkingSpaceId) {
+        if(dateAndTimeService.isInFuture(stopTime)) {
         return new ResponseEntity<>(parkingOccasionService.saveParkingOccasion(stopTime, carId, personId, parkingSpaceId), HttpStatus.CREATED);
+        } 
+        return ResponseEntity.notFound().build();
     }
+
+    @PutMapping("parkingoccasion/update/{parkingOccasionId}")
+    public ResponseEntity<ParkingOccasion> updateParkingOccasion(@RequestBody LocalDateTime stopTime, @PathVariable Long parkingOccasionId) {
+        if(dateAndTimeService.isInFuture(stopTime)) {
+        return new ResponseEntity<>(parkingOccasionService.updateParkingOccasion(stopTime, parkingOccasionId), HttpStatus.CREATED);
+        }
+        return ResponseEntity.notFound().build();
+    } 
+
 }

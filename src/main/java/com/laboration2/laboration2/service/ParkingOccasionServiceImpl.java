@@ -1,12 +1,11 @@
 package com.laboration2.laboration2.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import com.laboration2.laboration2.entity.Car;
 import com.laboration2.laboration2.entity.ParkingOccasion;
 import com.laboration2.laboration2.entity.ParkingSpace;
@@ -45,13 +44,24 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         ParkingOccasion parkingOccasion = new ParkingOccasion(localDateTime, stopTime, "active", car, person, parkingSpace);
-        
+
         return parkingOccasionRepository.save(parkingOccasion);
+       
     }
 
     @Override
     public List<ParkingOccasion> getParkingOccasions() {
         return (List<ParkingOccasion>)parkingOccasionRepository.findAll();
+    }
+
+    @Override
+    public ParkingOccasion updateParkingOccasion(LocalDateTime stopTime, Long ParkingOccasionId) {
+        ParkingOccasion updateParkingOccasion = parkingOccasionRepository.findById(ParkingOccasionId).get();
+       if(updateParkingOccasion.getStatus().equalsIgnoreCase("active")) {
+            updateParkingOccasion.setStopTime(stopTime);
+        }
+
+        return parkingOccasionRepository.save(updateParkingOccasion);
     }
     
 

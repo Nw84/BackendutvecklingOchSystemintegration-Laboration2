@@ -1,15 +1,11 @@
 package com.laboration2.laboration2.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class DateAndTimeService {
+public interface DateAndTimeService {
     
-
-    public boolean isInFuture(int stoptid) {
-        LocalDate date = LocalDate.now();
-        return stoptid > date.getYear(); 
-    }
+    Boolean isInFuture(LocalDateTime stoptid);
 }
