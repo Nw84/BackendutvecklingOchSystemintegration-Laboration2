@@ -57,4 +57,14 @@ public class ParkingOccasionController {
         return ResponseEntity.notFound().build();
     } 
 
+    @GetMapping("/parkingoccasion/active")
+    public ResponseEntity<List<ParkingOccasion>> getActiveParkingOccasions() {
+        return new ResponseEntity<>(parkingOccasionService.getByStatus("active"), HttpStatus.OK);
+    }
+
+    @GetMapping("/parkingoccasion/expired")
+    public ResponseEntity<List<ParkingOccasion>> getExpiredParkingOccasions() {
+        return new ResponseEntity<>(parkingOccasionService.getByStatus("expired"), HttpStatus.OK);
+    }
+
 }

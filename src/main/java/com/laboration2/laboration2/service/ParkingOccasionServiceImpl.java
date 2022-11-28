@@ -33,6 +33,9 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
 
     @Override
     public ParkingOccasion getParkingOccasion(Long id) {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
+        
         return parkingOccasionRepository.findById(id).get();
     }
 
@@ -51,6 +54,9 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
 
     @Override
     public List<ParkingOccasion> getParkingOccasions() {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
+
         return (List<ParkingOccasion>)parkingOccasionRepository.findAll();
     }
 
@@ -64,6 +70,14 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
         return parkingOccasionRepository.save(updateParkingOccasion);
     }
     
+    @Override
+    public List<ParkingOccasion> getByStatus(String status) {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
+
+        return (List<ParkingOccasion>)parkingOccasionRepository.findByStatus(status);
+    }
 
     //query string som hämtar where stoptime > currenttime, annars ändrar den status till expired
+
 }
