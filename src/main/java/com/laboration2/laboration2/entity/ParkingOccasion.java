@@ -1,11 +1,13 @@
 package com.laboration2.laboration2.entity;
 
-import jakarta.persistence.CascadeType;
+
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 
@@ -17,24 +19,36 @@ public class ParkingOccasion {
     private Long id;
 
 
-    private int startTime; 
+    private LocalDateTime startTime; 
 
-    private int stopTime;
+    private LocalDateTime stopTime;
 
     private String status; 
 
-    
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
-    
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "parkingspace_id", referencedColumnName = "id")
     private ParkingSpace parkingSpace;
+
+
+    public ParkingOccasion(LocalDateTime startTime, LocalDateTime stopTime, String status, Car car,
+            Person person, ParkingSpace parkingSpace) {
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.status = status;
+        this.car = car;
+        this.person = person;
+        this.parkingSpace = parkingSpace;
+    }
 
     public Long getId() {
         return id;
@@ -44,19 +58,19 @@ public class ParkingOccasion {
         this.id = id;
     }
 
-    public int getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public int getStopTime() {
+    public LocalDateTime getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(int stopTime) {
+    public void setStopTime(LocalDateTime stopTime) {
         this.stopTime = stopTime;
     } 
 

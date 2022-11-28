@@ -1,47 +1,43 @@
 package com.laboration2.laboration2.controller;
 
-import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import com.laboration2.laboration2.entity.ParkingOccasion;
-import com.laboration2.laboration2.repository.ParkingOccasionRepository;
+import com.laboration2.laboration2.service.ParkingOccasionService;
 
 @RestController
 public class ParkingOccasionController {
 
-    ParkingOccasionRepository parkingOccasionRepository;
+    @Autowired
+    ParkingOccasionService parkingOccasionService;
 
-    public ParkingOccasionController(ParkingOccasionRepository parkingOccasionRepository) {
-        this.parkingOccasionRepository = parkingOccasionRepository;
+
+    @GetMapping("/parkingoccasion/{id}")
+    public ResponseEntity<ParkingOccasion> getParkingOccasion(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingOccasionService.getParkingOccasion(id), HttpStatus.OK);
     }
 
-
-    @PostMapping("/parkingoccasion")
-    public ResponseEntity<ParkingOccasion> insertOne(@RequestBody ParkingOccasion parkingOccasion) {
-
-        var newParking = parkingOccasionRepository.save(parkingOccasion);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(newParking.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).body(newParking);
-
-    }
-
-
+ 
     @GetMapping("/parkingoccasion")
-    public List<ParkingOccasion> allPoints() {
-        return parkingOccasionRepository.findAll();
+    public ResponseEntity<List<ParkingOccasion>> getParkingOccasions() {
+        return new ResponseEntity<>(parkingOccasionService.getParkingOccasions(), HttpStatus.OK);
     }
-    
+
+
+
+    @PostMapping("/parkingoccasion/{carId}/{personId}/{parkingSpaceId}")
+    public ResponseEntity<ParkingOccasion> saveParkingOccasion(@RequestBody LocalDateTime stopTime, @PathVariable Long carId, @PathVariable Long personId, @PathVariable Long parkingSpaceId) {
+        return new ResponseEntity<>(parkingOccasionService.saveParkingOccasion(stopTime, carId, personId, parkingSpaceId), HttpStatus.CREATED);
+    }
 }
