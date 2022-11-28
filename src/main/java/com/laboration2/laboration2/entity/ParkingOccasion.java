@@ -40,6 +40,11 @@ public class ParkingOccasion {
     private ParkingSpace parkingSpace;
 
 
+
+    public ParkingOccasion() {
+        super();
+    }
+
     public ParkingOccasion(LocalDateTime startTime, LocalDateTime stopTime, String status, Car car,
             Person person, ParkingSpace parkingSpace) {
         this.startTime = startTime;

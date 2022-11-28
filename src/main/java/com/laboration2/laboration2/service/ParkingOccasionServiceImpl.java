@@ -45,9 +45,7 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         ParkingOccasion parkingOccasion = new ParkingOccasion(localDateTime, stopTime, "active", car, person, parkingSpace);
-
-
-
+        
         return parkingOccasionRepository.save(parkingOccasion);
     }
 
