@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.laboration2.laboration2.entity.Car;
 import com.laboration2.laboration2.entity.ParkingOccasion;
 import com.laboration2.laboration2.entity.ParkingSpace;
@@ -69,9 +71,10 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
         //Det stod att man skulle kunna flytta fram stopptiden, inte flytta bak den så lade till ett extra condition
        if(updateParkingOccasion.getStatus().equalsIgnoreCase("active") && (updateParkingOccasion.getStopTime()).compareTo(stopTime) < 0) {
             updateParkingOccasion.setStopTime(stopTime);
+            return parkingOccasionRepository.save(updateParkingOccasion);
         }
 
-        return parkingOccasionRepository.save(updateParkingOccasion);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request");
     }
 
     @Override
