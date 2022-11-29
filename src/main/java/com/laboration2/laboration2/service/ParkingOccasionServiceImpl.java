@@ -73,6 +73,12 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
 
         return parkingOccasionRepository.save(updateParkingOccasion);
     }
+
+    @Override
+    public void deleteParkingOccasion(Long id) {
+        parkingOccasionRepository.deleteById(id);
+    }
+    
     
     @Override
     public List<ParkingOccasion> getAllByStatus(String status) {

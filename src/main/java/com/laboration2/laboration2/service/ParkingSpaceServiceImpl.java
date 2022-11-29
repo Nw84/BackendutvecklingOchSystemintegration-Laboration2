@@ -25,6 +25,12 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
     }
 
     @Override
+    public void deleteParkingSpace(Long id) {
+        parkingSpaceRepository.deleteById(id);
+    }
+    
+
+    @Override
     public List<ParkingSpace> getParkingSpaces() {
         return (List<ParkingSpace>)parkingSpaceRepository.findAll();
     }

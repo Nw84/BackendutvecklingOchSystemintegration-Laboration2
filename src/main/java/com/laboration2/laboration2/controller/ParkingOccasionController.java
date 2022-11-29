@@ -52,7 +52,7 @@ public class ParkingOccasionController {
     @PutMapping("parkingoccasion/update/{parkingOccasionId}")
     public ResponseEntity<ParkingOccasion> updateParkingOccasion(@RequestBody LocalDateTime stopTime, @PathVariable Long parkingOccasionId) {
         if(dateAndTimeService.isInFuture(stopTime)) {
-        return new ResponseEntity<>(parkingOccasionService.updateParkingOccasion(stopTime, parkingOccasionId), HttpStatus.CREATED);
+        return new ResponseEntity<>(parkingOccasionService.updateParkingOccasion(stopTime, parkingOccasionId), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
     } 
