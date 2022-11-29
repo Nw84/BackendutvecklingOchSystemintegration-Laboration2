@@ -35,7 +35,7 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
     public ParkingOccasion getParkingOccasion(Long id) {
         LocalDateTime now = LocalDateTime.now();
         parkingOccasionRepository.updateStatus(now, "expired");
-        
+
         return parkingOccasionRepository.findById(id).get();
     }
 
@@ -62,8 +62,12 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
 
     @Override
     public ParkingOccasion updateParkingOccasion(LocalDateTime stopTime, Long ParkingOccasionId) {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
         ParkingOccasion updateParkingOccasion = parkingOccasionRepository.findById(ParkingOccasionId).get();
-       if(updateParkingOccasion.getStatus().equalsIgnoreCase("active")) {
+
+        //Det stod att man skulle kunna flytta fram stopptiden, inte flytta bak den så lade till ett extra condition
+       if(updateParkingOccasion.getStatus().equalsIgnoreCase("active") && (updateParkingOccasion.getStopTime()).compareTo(stopTime) < 0) {
             updateParkingOccasion.setStopTime(stopTime);
         }
 
@@ -71,13 +75,32 @@ public class ParkingOccasionServiceImpl implements ParkingOccasionService {
     }
     
     @Override
-    public List<ParkingOccasion> getByStatus(String status) {
+    public List<ParkingOccasion> getAllByStatus(String status) {
         LocalDateTime now = LocalDateTime.now();
         parkingOccasionRepository.updateStatus(now, "expired");
 
         return (List<ParkingOccasion>)parkingOccasionRepository.findByStatus(status);
     }
 
-    //query string som hämtar where stoptime > currenttime, annars ändrar den status till expired
+    @Override
+    public List<ParkingOccasion> getOneByStatusAndPersonId(String status, Long id) {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
+
+        return (List<ParkingOccasion>)parkingOccasionRepository.findByStatusAndPersonId(status, id);
+    }
+
+    @Override
+    public List<ParkingOccasion> getOneByStatusAndCarId(String status, Long id) {
+        LocalDateTime now = LocalDateTime.now();
+        parkingOccasionRepository.updateStatus(now, "expired");
+
+        return (List<ParkingOccasion>)parkingOccasionRepository.findByStatusAndCarId(status, id);
+    }
+
+    
+    
+
+    
 
 }

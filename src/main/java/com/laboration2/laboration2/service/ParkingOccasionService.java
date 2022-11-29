@@ -10,5 +10,7 @@ public interface ParkingOccasionService {
     ParkingOccasion saveParkingOccasion(LocalDateTime localDateTime, Long carId, Long personId, Long parkingSpaceId);
     ParkingOccasion updateParkingOccasion(LocalDateTime localDateTime, Long parkingOccasionId);
     List<ParkingOccasion> getParkingOccasions();
-    List<ParkingOccasion> getByStatus(String status);
+    List<ParkingOccasion> getOneByStatusAndPersonId(String status, Long id);
+    List<ParkingOccasion> getOneByStatusAndCarId(String status, Long id);
+    List<ParkingOccasion> getAllByStatus(String status);
 }

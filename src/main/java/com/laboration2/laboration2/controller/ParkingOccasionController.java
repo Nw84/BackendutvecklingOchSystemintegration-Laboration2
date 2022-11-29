@@ -59,12 +59,32 @@ public class ParkingOccasionController {
 
     @GetMapping("/parkingoccasion/active")
     public ResponseEntity<List<ParkingOccasion>> getActiveParkingOccasions() {
-        return new ResponseEntity<>(parkingOccasionService.getByStatus("active"), HttpStatus.OK);
+        return new ResponseEntity<>(parkingOccasionService.getAllByStatus("active"), HttpStatus.OK);
     }
 
     @GetMapping("/parkingoccasion/expired")
     public ResponseEntity<List<ParkingOccasion>> getExpiredParkingOccasions() {
-        return new ResponseEntity<>(parkingOccasionService.getByStatus("expired"), HttpStatus.OK);
+        return new ResponseEntity<>(parkingOccasionService.getAllByStatus("expired"), HttpStatus.OK);
+    }
+
+    @GetMapping("/parkingoccasion/expired/person/{id}")
+    public ResponseEntity<List<ParkingOccasion>> getExpiredParkingOccasionsForPerson(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingOccasionService.getOneByStatusAndPersonId("expired", id), HttpStatus.OK);
+    }
+
+    @GetMapping("/parkingoccasion/active/person/{id}")
+    public ResponseEntity<List<ParkingOccasion>> getActiveParkingOccasionsForPerson(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingOccasionService.getOneByStatusAndPersonId("active", id), HttpStatus.OK);
+    }
+
+    @GetMapping("/parkingoccasion/expired/car/{id}")
+    public ResponseEntity<List<ParkingOccasion>> getExpiredParkingOccasionsForCar(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingOccasionService.getOneByStatusAndCarId("expired", id), HttpStatus.OK);
+    }
+
+    @GetMapping("/parkingoccasion/active/car/{id}")
+    public ResponseEntity<List<ParkingOccasion>> getActiveParkingOccasionsForCar(@PathVariable Long id) {
+        return new ResponseEntity<>(parkingOccasionService.getOneByStatusAndCarId("active", id), HttpStatus.OK);
     }
 
 }

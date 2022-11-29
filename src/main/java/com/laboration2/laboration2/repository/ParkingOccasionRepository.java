@@ -20,6 +20,16 @@ public interface ParkingOccasionRepository extends ListCrudRepository <ParkingOc
                     """)
     List<ParkingOccasion> findByStatus(@Param("status") String status);
 
+    @Query("""  
+            SELECT p FROM ParkingOccasion p WHERE p.status = :status AND p.person.id = :id
+                    """)
+    List<ParkingOccasion> findByStatusAndPersonId(@Param("status") String status, Long id);
+
+    @Query("""  
+            SELECT p FROM ParkingOccasion p WHERE p.status = :status AND p.car.id = :id
+                    """)
+    List<ParkingOccasion> findByStatusAndCarId(@Param("status") String status, Long id);
+
     @Transactional
     @Modifying
     @Query("UPDATE ParkingOccasion p " +
